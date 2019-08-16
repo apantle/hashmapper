@@ -1,10 +1,10 @@
 <?php
 
-namespace Jefrancomix\Sohot\Test;
+namespace Apantle\HashMapper\Test;
 
 use PHPUnit\Framework\TestCase;
-use Jefrancomix\Sohot\HashmapMapper as HM;
-use function Jefrancomix\Sohot\compose;
+use Apantle\HashMapper\HashmapMapper as HM;
+use function Apantle\HashMapper\compose;
 
 class ImplicitSpreadMapperTest extends TestCase
 {
@@ -23,7 +23,7 @@ class ImplicitSpreadMapperTest extends TestCase
         $expectedTarget = $termData;
 
         $hm = new HM([
-          'wp:term' => compose('Jefrancomix\Sohot\head', 'Jefrancomix\Sohot\identity'),
+          'wp:term' => compose('Apantle\HashMapper\head', 'Apantle\HashMapper\identity'),
         ], ['implicitSpread' => true]);
 
         $target = $hm->apply($source);
@@ -66,7 +66,7 @@ class ImplicitSpreadMapperTest extends TestCase
     }
 
     /**
-     * @dataProvider Jefrancomix\Sohot\Test\SpreadMappingTest::spreadMappingDataProvider
+     * @dataProvider Apantle\HashMapper\Test\SpreadMappingTest::spreadMappingDataProvider
      */
     public function testHashMapperReusedReturnsOk($source, $expected)
     {

@@ -1,5 +1,5 @@
 <?php
-namespace Jefrancomix\Sohot;
+namespace Apantle\HashMapper;
 
 function identity($item)
 {

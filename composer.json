@@ -1,5 +1,5 @@
 {
-    "name": "jefrancomix/sohot",
+    "name": "apantle/hashmapper",
     "description": "Simple Ordered Hashmap Object Transformer (array_map for associative arrays)",
     "type": "library",
     "require-dev": {
@@ -7,7 +7,7 @@
     },
     "autoload": {
         "files": [ "src/functions.php" ],
-        "psr-4": { "Jefrancomix\\Sohot\\": "src/" }
+        "psr-4": { "Apantle\\HashMapper\\": "src/" }
     },
     "license": "MIT",
     "authors": [

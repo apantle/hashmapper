@@ -1,9 +1,9 @@
 <?php
 
-namespace Jefrancomix\Sohot\Test;
+namespace Apantle\HashMapper\Test;
 
 use PHPUnit\Framework\TestCase;
-use Jefrancomix\Sohot\HashmapMapper as HM;
+use Apantle\HashMapper\HashmapMapper as HM;
 
 class SpreadMappingTest extends TestCase
 {
@@ -57,7 +57,7 @@ class SpreadMappingTest extends TestCase
         $expectedTarget = $termData;
 
         $hm = new HM([
-          'wp:term' => ['...', 'Jefrancomix\Sohot\identity'],
+          'wp:term' => ['...', 'Apantle\HashMapper\identity'],
         ]);
 
         $target = $hm->apply($source);

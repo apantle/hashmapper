@@ -12,7 +12,7 @@ key mapping and callbacks.
 ## Simple key mapping
 
 ```php
-use Jefrancomix\Sohot\HashmapMapper as HM;
+use Apantle\HashMapper\HashmapMapper as HM;
 
 $source = ['origin' => 'Africa'];
 
@@ -42,7 +42,7 @@ that will receive as arguments:
 - the whole hashmap if you need other values of it
 
 ```php
-use Jefrancomix\Sohot\HashmapMapper as HM;
+use Apantle\HashMapper\HashmapMapper as HM;
 
 $source = [
     'date' => [
@@ -137,7 +137,7 @@ $source = [
 ];
 
 $mapper = new HM([
-    'wp:term' => ['...', 'Jefrancomix\Sohot\identity']
+    'wp:term' => ['...', 'Apantle\HashMapper\identity']
 ]);
 
 $target = $mapper->apply($source);
@@ -177,7 +177,7 @@ $source = [
 
 $hm = new HM(
     [
-        'wp:term' => compose('Jefrancomix\Sohot\head', 'Jefrancomix\Sohot\identity'),
+        'wp:term' => compose('Apantle\HashMapper\head', 'Apantle\HashMapper\identity'),
     ],
     [
         'implicitSpread' => true

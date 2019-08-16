@@ -1,9 +1,9 @@
 <?php
 
-namespace Jefrancomix\Sohot\Test;
+namespace Apantle\HashMapper\Test;
 
 use PHPUnit\Framework\TestCase;
-use Jefrancomix\Sohot\HashmapMapper as HM;
+use Apantle\HashMapper\HashmapMapper as HM;
 
 class ImplicitPassNotMatchedOptionsMapperTest extends TestCase
 {

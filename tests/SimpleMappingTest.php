@@ -1,10 +1,10 @@
 <?php
 
-namespace Jefrancomix\Sohot\Test;
+namespace Apantle\HashMapper\Test;
 
-use Jefrancomix\Sohot\HashmapMapperInterface;
+use Apantle\HashMapper\HashmapMapperInterface;
 use PHPUnit\Framework\TestCase;
-use Jefrancomix\Sohot\HashmapMapper as HM;
+use Apantle\HashMapper\HashmapMapper as HM;
 
 class SimpleMappingTest extends TestCase
 {

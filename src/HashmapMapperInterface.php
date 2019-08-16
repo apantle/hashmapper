@@ -1,6 +1,6 @@
 <?php
 
-namespace Jefrancomix\Sohot;
+namespace Apantle\HashMapper;
 
 interface HashmapMapperInterface
 {

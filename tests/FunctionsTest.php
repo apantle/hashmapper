@@ -1,12 +1,12 @@
 <?php
 
-namespace Jefrancomix\Sohot\Test;
+namespace Apantle\HashMapper\Test;
 
 use \PHPUnit\Framework\TestCase;
-use function Jefrancomix\Sohot\hashMapper;
-use function Jefrancomix\Sohot\identity;
-use function Jefrancomix\Sohot\head;
-use function Jefrancomix\Sohot\compose;
+use function Apantle\HashMapper\hashMapper;
+use function Apantle\HashMapper\identity;
+use function Apantle\HashMapper\head;
+use function Apantle\HashMapper\compose;
 
 class FunctionsTest extends TestCase
 {
@@ -36,7 +36,7 @@ class FunctionsTest extends TestCase
             3,
         ];
 
-        $composedFn = compose('Jefrancomix\Sohot\head', 'Jefrancomix\Sohot\head');
+        $composedFn = compose('Apantle\HashMapper\head', 'Apantle\HashMapper\head');
 
         $this->assertTrue(is_callable($composedFn));
 
