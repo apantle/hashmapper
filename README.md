@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/tzkmx/sohot.svg?branch=master)](https://travis-ci.org/tzkmx/sohot) [![Maintainability](https://api.codeclimate.com/v1/badges/bdc511cc3f3a39dca72b/maintainability)](https://codeclimate.com/github/tzkmx/sohot/maintainability)
+[![Build Status](https://travis-ci.org/apantle/hashmapper.svg?branch=master)](https://travis-ci.org/apantle/hashmapper)  [![Maintainability](https://api.codeclimate.com/v1/badges/5fa613bc0b87e5975a6a/maintainability)](https://codeclimate.com/github/apantle/hashmapper/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/5fa613bc0b87e5975a6a/test_coverage)](https://codeclimate.com/github/apantle/hashmapper/test_coverage)
 
 # Objective
 
@@ -6,8 +6,11 @@ This is a minimalistic library aimed to reuse logic
 on HashTables mapping, that i use over and over i.e.
 consuming API results to pass to Twig views.
 
-Currently, it supports transformation through simple
-key mapping and callbacks.
+Makes easy to do filtering/renaming of unwanted keys through simple
+dictionary of keys of source to target. Through callbacks supports
+any transformation, and passing it another callable or another instance
+of HashMapper, pretty complex transformation of associative arrays,
+a.k.a as Hashmaps for friends.
 
 ## Simple key mapping
 
@@ -205,10 +208,11 @@ array(5) {
  ``` 
 ## Functional use of HashMapper
 
-HashMapper offers a very simple interface, just the `map` method on an instance
-(there aren't extra methods, all the behaviour is configured at instantiation).
-It is immutable and this way is almost like a Closure, however it's somewhat
-awkward calling it with the `map` in every case.
+HashMapper offers a very simple interface, just the `apply` method on an instance
+(just another extra method, [to get a mapper appliable to a collection](https://github.com/apantle/hashmapper/issues/1)
+of associative arrays, all the behaviour is configured at instantiation). It is immutable and thus is
+almost like a Closure, however it's somewhat awkward calling it with `$mapper->apply`
+syntax in every case.
 
 ### Call a HashMapper as Functor object
 
@@ -224,7 +228,7 @@ same arguments of the class constructor, and get an instance ready to apply.
 ```php
 echo json_encode(array_map(
     hashMapper(['pdfUrl' => 'url']),
-    $arrayOfAssociativeArraysWithPdfUrlKey
+    $arrayOfAssociativeArraysWithPdfUrlKeyAndMore
 ));
 
 /* example result:
