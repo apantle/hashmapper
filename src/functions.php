@@ -23,3 +23,10 @@ function hashMapper($rules, $options = []): HashmapMapper
 {
     return new HashmapMapper($rules, $options);
 }
+
+function constant($value): callable
+{
+    return function () use ($value) {
+        return $value;
+    };
+}
