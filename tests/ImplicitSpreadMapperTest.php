@@ -4,7 +4,7 @@ namespace Apantle\HashMapper\Test;
 
 use PHPUnit\Framework\TestCase;
 use Apantle\HashMapper\HashmapMapper as HM;
-use function Apantle\HashMapper\compose;
+use function Apantle\FunPHP\compose;
 
 class ImplicitSpreadMapperTest extends TestCase
 {
@@ -23,7 +23,7 @@ class ImplicitSpreadMapperTest extends TestCase
         $expectedTarget = $termData;
 
         $hm = new HM([
-          'wp:term' => compose('Apantle\HashMapper\head', 'Apantle\HashMapper\identity'),
+          'wp:term' => compose('Apantle\FunPHP\head', 'Apantle\FunPHP\identity'),
         ], ['implicitSpread' => true]);
 
         $target = $hm->apply($source);

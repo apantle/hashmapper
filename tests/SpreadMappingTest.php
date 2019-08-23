@@ -57,7 +57,7 @@ class SpreadMappingTest extends TestCase
         $expectedTarget = $termData;
 
         $hm = new HM([
-          'wp:term' => ['...', 'Apantle\HashMapper\identity'],
+          'wp:term' => ['...', 'Apantle\FunPHP\identity'],
         ]);
 
         $target = $hm->apply($source);
