@@ -28,6 +28,11 @@ class HashmapMapper implements HashmapMapperInterface
      */
     protected $passNotMatchedKeys = false;
 
+    /**
+     * @var array functions detected as unary to run
+     */
+    protected $unaryFunctionsRegistry = [];
+
     public function __construct($rules, $options = [])
     {
         $this->rules = $rules;
@@ -115,11 +120,32 @@ class HashmapMapper implements HashmapMapperInterface
     protected function doCallActualMapperRule($actualRule, $hashmapValueAtKey, $sourceContext = null)
     {
         if (is_callable($actualRule)) {
-            return call_user_func($actualRule, $hashmapValueAtKey, $sourceContext);
+            $this->checkUnarySuportRequired($actualRule);
+            return $this->doCallUnarySupportProtection($actualRule, $hashmapValueAtKey, $sourceContext);
         }
         if ($actualRule instanceof HashmapMapperInterface) {
             return $actualRule->apply($hashmapValueAtKey, $sourceContext);
         }
+    }
+
+    protected function checkUnarySuportRequired($actualRule)
+    {
+        if (!is_string($actualRule)) {
+	    return;
+	}
+        if (isset($this->unaryFunctionsRegistry[$actualRule])) {
+            return;
+        }
+        $reflector = new \ReflectionFunction($actualRule);
+        $this->unaryFunctionsRegistry[$actualRule] = boolval($reflector->getNumberOfParameters() === 1);
+    }
+
+    protected function doCallUnarySupportProtection($actualRule, $hashmapValueAtKey, $sourceContext)
+    {
+        if (is_string($actualRule) && $this->unaryFunctionsRegistry[$actualRule]) {
+            return call_user_func($actualRule, $hashmapValueAtKey);
+        }
+        return call_user_func($actualRule, $hashmapValueAtKey, $sourceContext);
     }
 
     protected function maybePassToTargetUnmatchedKeys($hashmap)
