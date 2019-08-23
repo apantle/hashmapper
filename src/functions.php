@@ -30,3 +30,8 @@ function constant($value): callable
         return $value;
     };
 }
+
+function collection(HashmapMapperInterface $hashMapper): HashmapMapperInterface
+{
+    return $hashMapper->getCollectionMapper();
+}

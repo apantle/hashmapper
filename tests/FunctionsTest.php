@@ -7,6 +7,7 @@ use function Apantle\HashMapper\hashMapper;
 use function Apantle\HashMapper\identity;
 use function Apantle\HashMapper\head;
 use function Apantle\HashMapper\compose;
+use function Apantle\HashMapper\collection;
 
 class FunctionsTest extends TestCase
 {
@@ -65,7 +66,7 @@ class FunctionsTest extends TestCase
 
         $expectedTransformedList = [['fst' => 1, 'snd' => 2], ['fst' => 3, 'snd' => 4]];
 
-        $listMapper = $mapper->getCollectionMapper();
+        $listMapper = collection($mapper);
 
         $this->assertEquals($expectedTransformedList, $listMapper($list));
     }
