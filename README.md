@@ -34,24 +34,7 @@ that will receive as arguments:
 - the whole hashmap if you need other values of it
 
 ```php
-use Apantle\HashMapper\HashmapMapper as HM;
-
-$source = [
-    'date' => [
-        'year' => 2006,
-        'month' => 5,
-        'day' => 4,
-    ],
-    'place' => 'San Salvador Atenco',
-];
-
-/*
- * I want in $target a single string date:
- * so I pass a callable for the key in source,
- * and the key I want to appear in the target
- */
-
-$mapper = new HM([
+assert(hashMapper([
     'place' => 'Caso CIDH',
     'date' => [
         'fecha',
@@ -61,20 +44,17 @@ $mapper = new HM([
             return $date->format('Y-m-d');
         }
     ],
+])([
+    'date' => [
+        'year' => 2006,
+        'month' => 5,
+        'day' => 4,
+    ],
+    'place' => 'San Salvador Atenco',
+]) === [
+    'Caso CIDH' => 'San Salvador Atenco',
+    'fecha' => '2006-05-04'
 ]);
-
-$target = $mapper->apply($source);
-
-var_dump($target);
-/*
- * It results in:
- array(2) {
-     ["Caso CIDH"]=>
-     string(19) "San Salvador Atenco",
-     ["fecha"]=>
-     string(10) "2006-05-04"
- }
- */
 ```
 
 ## Use another HashMapper 
@@ -84,30 +64,18 @@ you could use another HashMapper with the spec for that subkey, as the mapper
 for that key.
 
 ```php
-$source = [
+assert(hashMapper([
+    'sourceKey' => hashMapper([ 'value' => 'legend' ])
+])([
     'sourceKey' => [
         'value' => 'to pass to HashMapper',
         'ignored' => 'it should not appear'
     ],
-];
-
-$sourceKeyMapper = new HM([ 'value' => 'legend' ]);
-
-$sourceMapper = new HM([ 'sourceKey' => $sourceKeyMapper ]);
-
-$target = $sourceMapper->apply($source);
-
-var_dump($target);
-
-/*
-array(1) {
-  'sourceKey' =>
-  array(1) {
-    'legend' =>
-    string(21) "to pass to HashMapper"
-  }
-}
-*/
+]) === [
+    'sourceKey => [
+        'legend' => 'to pass to HashMapper'
+    ]
+]);
 ```
 
 ## Spread Operator Mapping with Callable
@@ -117,7 +85,9 @@ the dictionary of key and values it contains) on the target hashmap, you
 can pass a tuple with the string `'...'` as the target key, and your chosen callable.
 
 ```php
-$source = [
+assert(hashMapper([
+    'wp:term' => ['...', 'Apantle\HashMapper\identity']
+])([
     'wp:term' => [
          'id' => 31925,
          'link' => 'http://example.com/category/test-term/',
@@ -126,25 +96,13 @@ $source = [
          'taxonomy' => 'category',
     ],
     'ignored' => 'right'
-];
-
-$mapper = new HM([
-    'wp:term' => ['...', 'Apantle\HashMapper\identity']
+]) === [
+     'id' => 31925,
+     'link' => 'http://example.com/category/test-term/',
+     'name' => 'Test term',
+     'slug' => 'test-term',
+     'taxonomy' => 'category',
 ]);
-
-$target = $mapper->apply($source);
-
-var_export($target);
-    
-/* Result:
-array (
-  'id' => 31925,
-  'link' => 'http://example.com/category/test-term/',
-  'name' => 'Test term',
-  'slug' => 'test-term',
-  'taxonomy' => 'category',
-)
-*/
 ```
 
 ## Implicit spread (not specifying '...' key)
@@ -155,7 +113,14 @@ only a callable, specifying the option `implicitSpread => true` in the
 constructor to the Mapper functor.
 
 ```php
-$source = [
+assert(hashMaper(
+    [
+        'wp:term' => compose('Apantle\HashMapper\head', 'Apantle\HashMapper\identity'),
+    ],
+    [
+        'implicitSpread' => true
+    ]
+)([
     'wp:term' => [
         [
             'id' => 31925,
@@ -165,65 +130,17 @@ $source = [
             'taxonomy' => 'category',
         ]
     ],
-];
-
-$hm = new HM(
-    [
-        'wp:term' => compose('Apantle\HashMapper\head', 'Apantle\HashMapper\identity'),
-    ],
-    [
-        'implicitSpread' => true
-    ]
-);
-
-$target = $hm->apply($source);
-
-var_dump($target);
-
-/* Result:
-array(5) {
-  'id' =>
-  int(31925)
-  'link' =>
-  string(38) "http://example.com/category/test-term/"
-  'name' =>
-  string(9) "Test term"
-  'slug' =>
-  string(9) "test-term"
-  'taxonomy' =>
-  string(8) "category"
-}
-*/
+]) === [
+    'id' => 31925,
+    'link' => 'http://example.com/category/test-term/',
+    'name' => 'Test term',
+    'slug' => 'test-term',
+    'taxonomy' => 'category',
+]);
  ``` 
-## Functional use of HashMapper
-
-HashMapper offers a very simple interface, just the `apply` method on an instance
-(just another extra method, [to get a mapper appliable to a collection](https://github.com/apantle/hashmapper/issues/1)
-of associative arrays, all the behaviour is configured at instantiation). It is immutable and thus is
-almost like a Closure, however it's somewhat awkward calling it with `$mapper->apply`
-syntax in every case.
 
 ### Call a HashMapper as Functor object
 
 For better reuse, now offers through the `__invoke` magic, a simpler way to use
 it to map a collection of associative arrays, as `array_map`, `array_reduce` or
 `Collection::map` (from `Illuminate\Support`). 
-
-### Function to build a new HashMapper quickly
-
-For even easier use, you can now use the `hashMapper` function, passing it the
-same arguments of the class constructor, and get an instance ready to apply.
-
-```php
-echo json_encode(array_map(
-    hashMapper(['pdfUrl' => 'url']),
-    $arrayOfAssociativeArraysWithPdfUrlKeyAndMore
-));
-
-/* example result:
-[
-    { "url": "..." },
-    { "url": "..." }
-]
-```
-
