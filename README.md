@@ -86,7 +86,7 @@ can pass a tuple with the string `'...'` as the target key, and your chosen call
 
 ```php
 assert(hashMapper([
-    'wp:term' => ['...', 'Apantle\HashMapper\identity']
+    'wp:term' => ['...', 'Apantle\FunPHP\identity']
 ])([
     'wp:term' => [
          'id' => 31925,
@@ -115,7 +115,7 @@ constructor to the Mapper functor.
 ```php
 assert(hashMaper(
     [
-        'wp:term' => compose('Apantle\HashMapper\head', 'Apantle\HashMapper\identity'),
+        'wp:term' => compose('Apantle\FunPHP\head', 'Apantle\FunPHP\identity'),
     ],
     [
         'implicitSpread' => true
@@ -154,3 +154,6 @@ to every array passed.
 ```php
 $collectionTransformed = collection(hashMapper($specs))($arrayOfAssociativeArrays);
 ```
+
+See issue:1 for links to more complete examples in test sources.
+
