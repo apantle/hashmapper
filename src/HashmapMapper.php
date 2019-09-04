@@ -126,13 +126,14 @@ class HashmapMapper implements HashmapMapperInterface
         if ($actualRule instanceof HashmapMapperInterface) {
             return $actualRule->apply($hashmapValueAtKey, $sourceContext);
         }
+        throw new \LogicException('mapper is not a callable or instance of HashmapMapperInterface');
     }
 
     protected function checkUnarySuportRequired($actualRule)
     {
         if (!is_string($actualRule)) {
-	    return;
-	}
+	        return;
+	    }
         if (isset($this->unaryFunctionsRegistry[$actualRule])) {
             return;
         }

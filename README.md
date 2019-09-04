@@ -155,5 +155,4 @@ to every array passed.
 $collectionTransformed = collection(hashMapper($specs))($arrayOfAssociativeArrays);
 ```
 
-See issue:1 for links to more complete examples in test sources.
-
+See [issue:1](https://github.com/apantle/hashmapper/issues/1) for more complete examples in test sources.
