@@ -12,30 +12,19 @@ any transformation, and passing it another callable or another instance
 of HashMapper, pretty complex transformation of associative arrays,
 a.k.a as Hashmaps for friends.
 
+```php
+use function Apantle\HashMapper\hashMapper;
+
+$target = hashMapper($specs, $options)($source);
+```
+
 ## Simple key mapping
 
-```php
-use Apantle\HashMapper\HashmapMapper as HM;
+Change one key in input, only output that in target.
 
-$source = ['origin' => 'Africa'];
-
-/*
- * I want in $target key "roots" instead of "origin":
- * so I pass a simple dictionary mapping
- */
-
-$mapper = new HM(['origin' => 'roots']);
-$target = $mapper->apply($source);
-
-var_dump($target);
-/*
- * It results in:
- array(1) {
-     ["roots"]=>
-     string(6) "Africa"
- }
- */
-```
+|Input|Mapper|Output|
+|:---|:---:|---:|
+|```['origin' => 'Africa'];```|```hashMapper(['origin' => 'roots]) ```|```['roots' => 'Africa']```|
 
 ## Callback key mapping
 
