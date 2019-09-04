@@ -144,3 +144,13 @@ assert(hashMaper(
 For better reuse, now offers through the `__invoke` magic, a simpler way to use
 it to map a collection of associative arrays, as `array_map`, `array_reduce` or
 `Collection::map` (from `Illuminate\Support`). 
+
+### Reuse a HashMapper to transform an array of associative arrays
+
+Instead of using the HashMapper as the function for `array_map` or `Collection::map`,
+you can use our own helper, that applies the same set of transformations
+to every array passed.
+
+```php
+$collectionTransformed = collection(hashMapper($specs))($arrayOfAssociativeArrays);
+```
