@@ -18,6 +18,14 @@ use function Apantle\HashMapper\hashMapper;
 $target = hashMapper($specs, $options)($source);
 ```
 
+## Installation
+
+You can install the package via composer:
+
+```bash
+composer require apantle/hashmapper
+```
+
 ## Simple key mapping
 
 Change one key in input, only output that in target.
