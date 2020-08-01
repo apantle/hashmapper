@@ -70,8 +70,8 @@ class SimpleMappingTest extends TestCase
 
     public function testCallablesCalledWithSubkeyAndHashmap()
     {
-        $mockAux = $this->getMockBuilder(stdClass::class)
-            ->setMethods(['getBirth', 'getDeath'])
+        $mockAux = $this->getMockBuilder(\stdClass::class)
+            ->addMethods(['getBirth', 'getDeath'])
             ->getMock();
 
         $source = [

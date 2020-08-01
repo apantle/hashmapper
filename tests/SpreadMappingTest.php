@@ -9,8 +9,8 @@ class SpreadMappingTest extends TestCase
 {
     public function testSpreadCallableMapping()
     {
-        $mockAux = $this->getMockBuilder(stdClass::class)
-            ->setMethods(['mapperCallable'])
+        $mockAux = $this->getMockBuilder(\stdClass::class)
+            ->addMethods(['mapperCallable'])
             ->getMock();
 
         $termData = [

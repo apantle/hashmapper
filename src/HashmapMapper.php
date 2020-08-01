@@ -132,8 +132,8 @@ class HashmapMapper implements HashmapMapperInterface
     protected function checkUnarySuportRequired($actualRule)
     {
         if (!is_string($actualRule)) {
-	        return;
-	    }
+            return;
+        }
         if (isset($this->unaryFunctionsRegistry[$actualRule])) {
             return;
         }

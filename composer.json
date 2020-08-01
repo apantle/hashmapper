@@ -7,13 +7,21 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^6||^7||^8",
-        "apantle/fun-php": "~0.3"
+        "apantle/fun-php": "~0.3",
+        "friendsofphp/php-cs-fixer": "^2.16"
     },
     "autoload": {
         "files": [ "src/functions.php" ],
         "psr-4": { "Apantle\\HashMapper\\": "src/" }
     },
     "license": "MIT",
+    "config": {
+        "bin-dir": "./"
+    },
+    "scripts": {
+        "tests": "phpunit",
+        "coding-style": "php-cs-fixer fix --dry-run --diff --config=.php_cs.dist"
+    },
     "authors": [
         {
             "name": "Jesus E. Franco Martinez",

@@ -5,3 +5,6 @@ composer.lock
 .php_cs.cache
 .phpunit.result.cache
 docs/
+phpunit
+php-cs-fixer
+*.bat
